@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { IoIosArrowDown } from 'react-icons/io'
-import { GoArrowUp, GoTrashcan } from 'react-icons/go'
+import React, { useState, useEffect } from 'react'
+import { IoIosArrowDown, IoIosAdd, IoIosShuffle } from 'react-icons/io'
+import { GoTrashcan } from 'react-icons/go'
 import { useWorkspaceValue } from '../context/WorkspaceContext'
 import {
+  ADD_WORKSPACE,
   SELECT_WORKSPACE,
   DELETE_WORKSPACE,
 } from '../reducers/WorkspaceReducer'
@@ -20,6 +21,53 @@ interface ListProps {
   workspaces: Array<WorkspaceData>
 }
 
+const AddWorkspaceListItem = () => {
+  const [showError, setShowError] = useState(false)
+  const [name, setName] = useState('')
+  const { dispatch } = useWorkspaceValue()
+
+  const addWorkspace = () => {
+    if (name && name.length > 0 && name.length <= 20) {
+      dispatch({ type: ADD_WORKSPACE, ws: { name } })
+      setName('')
+      setShowError(false)
+      return
+    }
+  }
+
+  useEffect(() => {
+    if (name && (name.length < 0 || name.length > 20)) {
+      setShowError(true)
+    } else {
+      setShowError(false)
+    }
+  }, [name])
+
+  return (
+    <div className="workspace-select__list-item">
+      <div className="workspace-select__list-item-inner">
+        <input
+          className={`workspace-select__text-input ${
+            showError ? 'workspace-select__text-input-error' : ''
+          }`}
+          placeholder="Give your workspace a name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+        <div className="workspace-select__list-item-actions">
+          <IoIosAdd
+            className="workspace-select__list-item-actions-icon"
+            onClick={() => addWorkspace()}
+          />
+        </div>
+      </div>
+      {/* {showError ? (
+        <p className="text-input-error">Use 20 or less characters.</p>
+      ) : null} */}
+    </div>
+  )
+}
+
 const WorkspaceListItem = (props: ListItemProps) => {
   const { dispatch } = useWorkspaceValue()
   const { ws, actions } = props
@@ -30,19 +78,21 @@ const WorkspaceListItem = (props: ListItemProps) => {
 
   return (
     <div className="workspace-select__list-item">
-      <p className="workspace-select__list-item-name">{name}</p>
-      {actions ? (
-        <div className="workspace-select__list-item-actions">
-          <GoArrowUp
-            className="workspace-select__list-item-actions-icon"
-            onClick={() => selectWorkspace(name)}
-          />
-          <GoTrashcan
-            className="workspace-select__list-item-actions-icon"
-            onClick={() => deleteWorkspace(name)}
-          />
-        </div>
-      ) : null}
+      <div className="workspace-select__list-item-inner">
+        <p className="workspace-select__list-item-name">{name}</p>
+        {actions ? (
+          <div className="workspace-select__list-item-actions">
+            <IoIosShuffle
+              className="workspace-select__list-item-actions-icon rotate-90"
+              onClick={() => selectWorkspace(name)}
+            />
+            <GoTrashcan
+              className="workspace-select__list-item-actions-icon"
+              onClick={() => deleteWorkspace(name)}
+            />
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }
@@ -54,22 +104,12 @@ WorkspaceListItem.defaultProps = {
 const WorkspaceListContainer = (props: ListProps) => {
   const { workspaces } = props
   return (
-    <>
-      {workspaces && workspaces.length ? (
-        <div className="workspace-select__list">
-          {workspaces.map(ws => (
-            <WorkspaceListItem key={ws.name} ws={ws} />
-          ))}
-        </div>
-      ) : (
-        <div className="workspace-select__list">
-          <WorkspaceListItem
-            ws={{ name: 'No other workspaces.' }}
-            actions={false}
-          />
-        </div>
-      )}
-    </>
+    <div className="workspace-select__list">
+      {workspaces && workspaces.length
+        ? workspaces.map(ws => <WorkspaceListItem key={ws.name} ws={ws} />)
+        : null}
+      <AddWorkspaceListItem />
+    </div>
   )
 }
 

@@ -27,10 +27,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Transforms
+/* Common
 ======================================= */
 .rotate180 {
   transform: rotate(180deg); // clockwise
+}
+
+.rotate-90 {
+  transform: rotate(-90deg); // anti-clockwise
+}
+
+p.text-input-error {
+  margin: 8px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 4px;
+  color: $white;
+  background-color: $red;
 }
 
 /* Header
@@ -50,6 +63,19 @@ body {
   position: relative;
   width: 340px;
   padding: 16px;
+
+  &__text-input {
+    outline: none;
+    width: 200px;
+    padding: 8px;
+    border: $generic-border;
+    box-shadow: none;
+
+    &-error {
+      border-color: $red;
+      box-shadow: $red 0px 0px 2px 1px;
+    }
+  }
 
   &__main {
     @include va();
@@ -85,9 +111,12 @@ body {
     border-top: $generic-border;
 
     &-item {
-      @include va(space-between);
-      padding: 8px 16px;
       border-bottom: $generic-border;
+
+      &-inner {
+        @include va(space-between);
+        padding: 8px 16px;
+      }
 
       &-name {
         @include no-select();
