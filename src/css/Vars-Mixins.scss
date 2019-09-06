@@ -1,6 +1,8 @@
 /* Variables
 ======================================= */
-$generic-box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 8px 4px;
+$generic-box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 8px -4px;
+$generic-transition: all 150ms ease-out;
+$generic-border: 1px solid $lighter-gray;
 
 /* Mixins
 ======================================= */
@@ -20,13 +22,7 @@ $generic-box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 8px 4px;
   -ms-flex-align: center;
   align-items: center;
 
-  @if $horizontal-align != center {
-    -webkit-box-pack: left;
-    -ms-flex-pack: left;
-    justify-content: left;
-  } @else {
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
+  -webkit-box-pack: $horizontal-align;
+  -ms-flex-pack: $horizontal-align;
+  justify-content: $horizontal-align;
 }

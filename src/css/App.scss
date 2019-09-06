@@ -1,13 +1,5 @@
-/* Font
-======================================= */
 @import url('https://fonts.googleapis.com/css?family=Muli:400,700&display=swap');
-
-/* Color Palette
-======================================= */
 @import 'Palette';
-
-/* Variables & Mixins
-======================================= */
 @import 'Vars-Mixins';
 
 /* General Settings
@@ -35,12 +27,87 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Transforms
+======================================= */
+.rotate180 {
+  transform: rotate(180deg); // clockwise
+}
+
 /* Header
 ======================================= */
 .app-header {
   @include va();
   width: 100%;
-  padding: 24px;
   background-color: $white;
   box-shadow: $generic-box-shadow;
+}
+
+/* Workspace Selector & List
+======================================= */
+.workspace-select {
+  @include va(center);
+  position: relative;
+  width: 340px;
+  padding: 16px;
+
+  &__main {
+    @include va();
+    display: inline-flex;
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $lighter-gray;
+    }
+
+    &-name {
+      margin: 0 16px 0 0;
+      font-size: 24px;
+    }
+
+    &-toggle {
+      font-size: 1.5em;
+      transition: $generic-transition;
+    }
+  }
+
+  &__list {
+    position: absolute;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: $white;
+    box-shadow: rgba(#000000, 0.24) 0px 4px 4px 0px;
+    border-top: $generic-border;
+
+    &-item {
+      @include va(space-between);
+      padding: 8px 16px;
+      border-bottom: $generic-border;
+
+      &-name {
+        @include no-select();
+        padding-right: 16px;
+      }
+
+      &-actions {
+        @include va(flex-end);
+
+        &-icon {
+          padding: 4px;
+          border: 0;
+          border-radius: 4px;
+          font-size: 2.5em;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $lighter-gray;
+          }
+        }
+      }
+    }
+  }
 }
