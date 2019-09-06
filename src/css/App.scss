@@ -1,0 +1,35 @@
+/* Font
+======================================= */
+@import url('https://fonts.googleapis.com/css?family=Muli:400,700&display=swap');
+
+/* Color Palette
+======================================= */
+@import 'Palette';
+
+/* Variables & Mixins
+======================================= */
+@import 'Vars-Mixins';
+
+/* General Settings
+======================================= */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-family: 'Muli', sans-serif;
+  color: $black;
+  background-color: $white;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
