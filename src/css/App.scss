@@ -26,10 +26,21 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1;
+  font-size: 14px;
   font-family: 'Muli', sans-serif;
   color: $black;
   background-color: $white;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header
+======================================= */
+.app-header {
+  @include va();
+  width: 100%;
+  padding: 24px;
+  background-color: $white;
+  box-shadow: $generic-box-shadow;
 }
