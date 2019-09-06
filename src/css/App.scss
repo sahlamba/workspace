@@ -45,6 +45,7 @@ body {
 /* Workspace Selector & List
 ======================================= */
 .workspace-select {
+  @include no-select();
   @include va(center);
   position: relative;
   width: 340px;
