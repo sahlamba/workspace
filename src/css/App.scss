@@ -50,9 +50,25 @@ p.text-input-error {
 ======================================= */
 .app-header {
   @include va();
+  position: relative;
   width: 100%;
+  padding: 0 20%;
   background-color: $white;
   box-shadow: $generic-box-shadow;
+
+  &.dark-mode {
+    @include dark-mode-styles();
+  }
+
+  .dark-mode-toggle {
+    position: absolute;
+    right: 20%;
+    @include generic-icon();
+
+    &.dark-mode {
+      @include dark-mode-styles(true);
+    }
+  }
 }
 
 /* Workspace Selector & List
@@ -71,6 +87,10 @@ p.text-input-error {
     border: $generic-border;
     box-shadow: none;
 
+    &.dark-mode {
+      @include dark-mode-styles();
+    }
+
     &-error {
       border-color: $red;
       box-shadow: $red 0px 0px 2px 1px;
@@ -82,6 +102,10 @@ p.text-input-error {
     display: inline-flex;
     padding: 8px;
     cursor: pointer;
+
+    &.dark-mode {
+      @include dark-mode-styles(true);
+    }
 
     &:hover {
       background-color: $lighter-gray;
@@ -110,8 +134,17 @@ p.text-input-error {
     box-shadow: rgba(#000000, 0.24) 0px 4px 4px 0px;
     border-top: $generic-border;
 
+    &.dark-mode {
+      @include dark-mode-styles();
+      border-top: $generic-border-dark;
+    }
+
     &-item {
       border-bottom: $generic-border;
+
+      &.dark-mode {
+        border-bottom: $generic-border-dark;
+      }
 
       &-inner {
         @include va(space-between);
@@ -127,14 +160,10 @@ p.text-input-error {
         @include va(flex-end);
 
         &-icon {
-          padding: 4px;
-          border: 0;
-          border-radius: 4px;
-          font-size: 2.5em;
-          cursor: pointer;
+          @include generic-icon();
 
-          &:hover {
-            background-color: $lighter-gray;
+          &.dark-mode {
+            @include dark-mode-styles(true);
           }
         }
       }
