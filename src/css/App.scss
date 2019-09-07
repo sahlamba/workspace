@@ -48,10 +48,13 @@ p.text-input-error {
 
 /* Header
 ======================================= */
+$header-height: 72px;
+
 .app-header {
   @include va();
   position: relative;
   width: 100%;
+  height: $header-height;
   padding: 0 20%;
   background-color: $white;
   box-shadow: $generic-box-shadow;
@@ -133,6 +136,7 @@ p.text-input-error {
     background-color: $white;
     box-shadow: rgba(#000000, 0.24) 0px 4px 4px 0px;
     border-top: $generic-border;
+    z-index: 100;
 
     &.dark-mode {
       @include dark-mode-styles();
@@ -168,5 +172,22 @@ p.text-input-error {
         }
       }
     }
+  }
+}
+
+/* Note Editor
+======================================= */
+$note-editor-top-margin: 24px;
+
+.note-editor {
+  &__container {
+    width: 70%;
+    min-height: calc(100vh - #{$header-height} - #{$note-editor-top-margin});
+    border-left: $generic-border;
+    border-right: $generic-border;
+    margin: $note-editor-top-margin 15% 0 15%;
+    padding: 16px;
+    font-size: 20px;
+    cursor: text;
   }
 }
