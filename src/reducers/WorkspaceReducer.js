@@ -2,20 +2,11 @@ export const ADD_WORKSPACE = 'ADD_WORKSPACE'
 export const SELECT_WORKSPACE = 'SELECT_WORKSPACE'
 export const DELETE_WORKSPACE = 'DELETE_WORKSPACE'
 
-export const workspaceState = {
+export const defaultState = {
   selectedWorkspace: 'workspace',
   workspaces: [
     {
       name: 'workspace',
-    },
-    {
-      name: 'A big line of text talking about something.',
-    },
-    {
-      name: 'Thoughts',
-    },
-    {
-      name: 'Work',
     },
   ],
 }

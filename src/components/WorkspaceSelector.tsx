@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { IoIosArrowDown, IoIosAdd, IoIosShuffle } from 'react-icons/io'
 import { GoTrashcan } from 'react-icons/go'
-import { useWorkspaceValue } from '../context/WorkspaceContext'
+import { useWorkspaceContext } from '../context/WorkspaceContext'
 import {
   ADD_WORKSPACE,
   SELECT_WORKSPACE,
@@ -24,7 +24,7 @@ interface ListProps {
 const AddWorkspaceListItem = () => {
   const [showError, setShowError] = useState(false)
   const [name, setName] = useState('')
-  const { dispatch } = useWorkspaceValue()
+  const { dispatch } = useWorkspaceContext()
 
   const addWorkspace = () => {
     if (name && name.length > 0 && name.length <= 20) {
@@ -69,7 +69,7 @@ const AddWorkspaceListItem = () => {
 }
 
 const WorkspaceListItem = (props: ListItemProps) => {
-  const { dispatch } = useWorkspaceValue()
+  const { dispatch } = useWorkspaceContext()
   const { ws, actions } = props
   const { name } = ws
 
@@ -116,7 +116,7 @@ const WorkspaceListContainer = (props: ListProps) => {
 export const WorkspaceSelector = () => {
   const [showList, setShowList] = useState(false)
 
-  const { state } = useWorkspaceValue()
+  const { state } = useWorkspaceContext()
   const { selectedWorkspace, workspaces } = state
 
   const onClick = () => setShowList(!showList)
