@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import { trackEvent } from '../utils/tracking'
 
 export const DarkModeContext = createContext(null)
 
@@ -8,6 +9,10 @@ export const DarkModeContextProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(storedValue ? storedValue : false)
 
   const toggleDarkMode = () => {
+    trackEvent({
+      category: 'DarkMode',
+      action: darkMode ? 'disable' : 'enable',
+    })
     setDarkMode(!darkMode)
   }
 

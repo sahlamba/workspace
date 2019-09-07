@@ -1,3 +1,5 @@
+import { trackEvent } from '../utils/tracking'
+
 export const ADD_WORKSPACE = 'ADD_WORKSPACE'
 export const SELECT_WORKSPACE = 'SELECT_WORKSPACE'
 export const DELETE_WORKSPACE = 'DELETE_WORKSPACE'
@@ -25,12 +27,20 @@ export const defaultState = {
 export const workspaceReducer = (state, action) => {
   switch (action.type) {
     case SELECT_WORKSPACE: {
+      trackEvent({
+        category: 'Workspace',
+        action: 'Switch',
+      })
       return {
         ...state,
         selectedWorkspace: action.name,
       }
     }
     case DELETE_WORKSPACE: {
+      trackEvent({
+        category: 'Workspace',
+        action: 'Delete',
+      })
       const { workspaces } = state
       return {
         ...state,
@@ -38,6 +48,10 @@ export const workspaceReducer = (state, action) => {
       }
     }
     case ADD_WORKSPACE: {
+      trackEvent({
+        category: 'Workspace',
+        action: 'Add',
+      })
       const { workspaces } = state
       workspaces.push({ ...defaultWorkspaceData, ...action.ws })
       return {
