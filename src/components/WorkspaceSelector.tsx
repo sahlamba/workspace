@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { IoIosArrowDown, IoIosAdd, IoIosShuffle } from 'react-icons/io'
-import { GoTrashcan } from 'react-icons/go'
+import { GoTrashcan, GoX, GoCheck } from 'react-icons/go'
 import { useWorkspaceContext } from '../context/WorkspaceContext'
 import { useDarkModeContext } from '../context/DarkModeContext'
 import {
@@ -104,6 +104,8 @@ const AddWorkspaceListItem = () => {
 }
 
 const WorkspaceListItem = (props: ListItemProps) => {
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false)
+
   const { darkMode } = useDarkModeContext()
   const { dispatch } = useWorkspaceContext()
   const { ws, actions } = props
@@ -111,6 +113,8 @@ const WorkspaceListItem = (props: ListItemProps) => {
 
   const selectWorkspace = name => dispatch({ type: SELECT_WORKSPACE, name })
   const deleteWorkspace = name => dispatch({ type: DELETE_WORKSPACE, name })
+
+  const toggleDelete = () => setConfirmDeleteOpen(!confirmDeleteOpen)
 
   return (
     <div
@@ -125,12 +129,29 @@ const WorkspaceListItem = (props: ListItemProps) => {
               }`}
               onClick={() => selectWorkspace(name)}
             />
-            <GoTrashcan
-              className={`workspace-select__list-item-actions-icon ${
-                darkMode ? 'dark-mode' : ''
-              }`}
-              onClick={() => deleteWorkspace(name)}
-            />
+            {confirmDeleteOpen ? (
+              <div className="workspace-select__list-item-actions-confirm">
+                <GoCheck
+                  className={`workspace-select__list-item-actions-icon ${
+                    darkMode ? 'dark-mode' : ''
+                  } delete-action`}
+                  onClick={() => deleteWorkspace(name)}
+                />
+                <GoX
+                  className={`workspace-select__list-item-actions-icon ${
+                    darkMode ? 'dark-mode' : ''
+                  }`}
+                  onClick={() => toggleDelete()}
+                />
+              </div>
+            ) : (
+              <GoTrashcan
+                className={`workspace-select__list-item-actions-icon ${
+                  darkMode ? 'dark-mode' : ''
+                }`}
+                onClick={() => toggleDelete()}
+              />
+            )}
           </div>
         ) : null}
       </div>
