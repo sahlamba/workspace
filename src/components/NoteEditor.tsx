@@ -61,7 +61,7 @@ export const NoteEditor = () => {
       <div className="note-editor__container" onClick={focusEditor}>
         <Editor
           ref={setEditor}
-          placeholder="What are you thinking about?"
+          placeholder="This is your space. Start typing."
           editorState={editorState}
           onChange={onChange}
         />
