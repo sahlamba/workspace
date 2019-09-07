@@ -46,6 +46,24 @@ p.text-input-error {
   background-color: $red;
 }
 
+@keyframes showThis {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.visible {
+  display: inherit;
+  animation: showThis 600ms linear;
+}
+
+.invisible {
+  display: none;
+}
+
 /* Header
 ======================================= */
 $header-height: 72px;
@@ -59,6 +77,10 @@ $header-height: 72px;
   background-color: $white;
   box-shadow: $generic-box-shadow;
 
+  @include mq(900px) {
+    padding: 0;
+  }
+
   &.dark-mode {
     @include dark-mode-styles();
     box-shadow: $generic-box-shadow-dark;
@@ -68,6 +90,10 @@ $header-height: 72px;
     position: absolute;
     right: 20%;
     @include generic-icon();
+
+    @include mq(900px) {
+      right: 16px;
+    }
 
     &.dark-mode {
       @include dark-mode-styles(true);
@@ -83,6 +109,11 @@ $header-height: 72px;
   position: relative;
   width: 340px;
   padding: 16px;
+
+  @include mq(900px) {
+    width: 100%;
+    justify-content: space-between;
+  }
 
   &__text-input {
     outline: none;
@@ -119,6 +150,10 @@ $header-height: 72px;
     &-name {
       margin: 0 16px 0 0;
       font-size: 24px;
+
+      @include mq(900px) {
+        font-size: 20px;
+      }
     }
 
     &-toggle {
@@ -171,6 +206,25 @@ $header-height: 72px;
           &.dark-mode {
             @include dark-mode-styles(true);
           }
+
+          &.delete-action {
+            color: $white;
+            background-color: $red;
+
+            &:hover {
+              background-color: darken($red, 16);
+            }
+          }
+        }
+
+        &-confirm {
+          display: flex;
+          border: 1px solid $lighter-gray;
+          border-radius: 4px;
+        }
+
+        &-new {
+          margin: 0 0 0 8px;
         }
       }
     }
@@ -184,22 +238,20 @@ $note-editor-top-margin: 24px;
 .note-editor {
   padding: $note-editor-top-margin 15% 0 15%;
 
+  @include mq(900px) {
+    padding: $note-editor-top-margin 16px 0 16px;
+  }
+
   &.dark-mode {
     @include dark-mode-styles();
-
-    & .note-editor__container {
-      // border-left: $generic-border-dark;
-      // border-right: $generic-border-dark;
-    }
   }
 
   &__container {
     width: 100%;
     min-height: calc(100vh - #{$header-height} - #{$note-editor-top-margin});
-    // border-left: $generic-border;
-    // border-right: $generic-border;
-    padding: 16px;
-    font-size: 20px;
+    padding: 16px 16px 32px 16px;
+    font-size: 18px;
+    line-height: 1.4em;
     cursor: text;
   }
 }

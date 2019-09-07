@@ -29,6 +29,12 @@ $generic-border-dark: 1px solid $light-gray;
   justify-content: $horizontal-align;
 }
 
+@mixin mq($from) {
+  @media (max-width: $from) {
+    @content;
+  }
+}
+
 @mixin generic-icon() {
   padding: 4px;
   border: 0;
