@@ -1,8 +1,10 @@
 /* Variables
 ======================================= */
 $generic-box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 8px -4px;
+$generic-box-shadow-dark: rgba(0, 0, 0, 0.36) 0px 8px 8px -4px;
 $generic-transition: all 150ms ease-out;
 $generic-border: 1px solid $lighter-gray;
+$generic-border-dark: 1px solid $light-gray;
 
 /* Mixins
 ======================================= */
@@ -25,4 +27,27 @@ $generic-border: 1px solid $lighter-gray;
   -webkit-box-pack: $horizontal-align;
   -ms-flex-pack: $horizontal-align;
   justify-content: $horizontal-align;
+}
+
+@mixin generic-icon() {
+  padding: 4px;
+  border: 0;
+  border-radius: 4px;
+  font-size: 2.5em;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $lighter-gray;
+  }
+}
+
+@mixin dark-mode-styles($hover-styles: false) {
+  color: $white;
+  background-color: $black;
+
+  @if $hover-styles {
+    &:hover {
+      background-color: $light-gray;
+    }
+  }
 }

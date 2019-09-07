@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { IoIosArrowDown, IoIosAdd, IoIosShuffle } from 'react-icons/io'
 import { GoTrashcan } from 'react-icons/go'
-import { useWorkspaceValue } from '../context/WorkspaceContext'
+import { useWorkspaceContext } from '../context/WorkspaceContext'
+import { useDarkModeContext } from '../context/DarkModeContext'
 import {
   ADD_WORKSPACE,
   SELECT_WORKSPACE,
@@ -24,7 +25,9 @@ interface ListProps {
 const AddWorkspaceListItem = () => {
   const [showError, setShowError] = useState(false)
   const [name, setName] = useState('')
-  const { dispatch } = useWorkspaceValue()
+
+  const { darkMode } = useDarkModeContext()
+  const { dispatch } = useWorkspaceContext()
 
   const addWorkspace = () => {
     if (name && name.length > 0 && name.length <= 20) {
@@ -44,19 +47,22 @@ const AddWorkspaceListItem = () => {
   }, [name])
 
   return (
-    <div className="workspace-select__list-item">
+    <div
+      className={`workspace-select__list-item ${darkMode ? 'dark-mode' : ''}`}>
       <div className="workspace-select__list-item-inner">
         <input
           className={`workspace-select__text-input ${
             showError ? 'workspace-select__text-input-error' : ''
-          }`}
+          } ${darkMode ? 'dark-mode' : ''}`}
           placeholder="Give your workspace a name"
           value={name}
           onChange={e => setName(e.target.value)}
         />
         <div className="workspace-select__list-item-actions">
           <IoIosAdd
-            className="workspace-select__list-item-actions-icon"
+            className={`workspace-select__list-item-actions-icon ${
+              darkMode ? 'dark-mode' : ''
+            }`}
             onClick={() => addWorkspace()}
           />
         </div>
@@ -69,7 +75,8 @@ const AddWorkspaceListItem = () => {
 }
 
 const WorkspaceListItem = (props: ListItemProps) => {
-  const { dispatch } = useWorkspaceValue()
+  const { darkMode } = useDarkModeContext()
+  const { dispatch } = useWorkspaceContext()
   const { ws, actions } = props
   const { name } = ws
 
@@ -77,17 +84,22 @@ const WorkspaceListItem = (props: ListItemProps) => {
   const deleteWorkspace = name => dispatch({ type: DELETE_WORKSPACE, name })
 
   return (
-    <div className="workspace-select__list-item">
+    <div
+      className={`workspace-select__list-item ${darkMode ? 'dark-mode' : ''}`}>
       <div className="workspace-select__list-item-inner">
         <p className="workspace-select__list-item-name">{name}</p>
         {actions ? (
           <div className="workspace-select__list-item-actions">
             <IoIosShuffle
-              className="workspace-select__list-item-actions-icon rotate-90"
+              className={`workspace-select__list-item-actions-icon rotate-90 ${
+                darkMode ? 'dark-mode' : ''
+              }`}
               onClick={() => selectWorkspace(name)}
             />
             <GoTrashcan
-              className="workspace-select__list-item-actions-icon"
+              className={`workspace-select__list-item-actions-icon ${
+                darkMode ? 'dark-mode' : ''
+              }`}
               onClick={() => deleteWorkspace(name)}
             />
           </div>
@@ -103,8 +115,10 @@ WorkspaceListItem.defaultProps = {
 
 const WorkspaceListContainer = (props: ListProps) => {
   const { workspaces } = props
+  const { darkMode } = useDarkModeContext()
+
   return (
-    <div className="workspace-select__list">
+    <div className={`workspace-select__list ${darkMode ? 'dark-mode' : ''}`}>
       {workspaces && workspaces.length
         ? workspaces.map(ws => <WorkspaceListItem key={ws.name} ws={ws} />)
         : null}
@@ -116,14 +130,17 @@ const WorkspaceListContainer = (props: ListProps) => {
 export const WorkspaceSelector = () => {
   const [showList, setShowList] = useState(false)
 
-  const { state } = useWorkspaceValue()
+  const { darkMode } = useDarkModeContext()
+  const { state } = useWorkspaceContext()
   const { selectedWorkspace, workspaces } = state
 
   const onClick = () => setShowList(!showList)
 
   return (
     <div className="workspace-select">
-      <div className="workspace-select__main" onClick={onClick}>
+      <div
+        className={`workspace-select__main ${darkMode ? 'dark-mode' : ''}`}
+        onClick={onClick}>
         <p className="workspace-select__main-name">{selectedWorkspace}</p>
         <IoIosArrowDown
           className={`workspace-select__main-toggle ${
