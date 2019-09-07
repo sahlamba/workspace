@@ -6,13 +6,12 @@ import { Header } from './components/Header'
 import { NoteEditor } from './components/NoteEditor'
 import { WorkspaceContextProvider } from './context/WorkspaceContext'
 import { DarkModeContextProvider } from './context/DarkModeContext'
-
-import ReactGA from 'react-ga'
-ReactGA.initialize('UA-147259310-1')
+import { initAnalytics, trackPage } from './utils/tracking.js'
 
 export const App = () => {
   useEffect(() => {
-    ReactGA.pageview('/')
+    initAnalytics()
+    trackPage({ path: '/' })
   }, [])
 
   return (
