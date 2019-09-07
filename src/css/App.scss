@@ -61,6 +61,7 @@ $header-height: 72px;
 
   &.dark-mode {
     @include dark-mode-styles();
+    box-shadow: $generic-box-shadow-dark;
   }
 
   .dark-mode-toggle {
@@ -88,6 +89,7 @@ $header-height: 72px;
     width: 200px;
     padding: 8px;
     border: $generic-border;
+    border-radius: 4px;
     box-shadow: none;
 
     &.dark-mode {
@@ -140,14 +142,14 @@ $header-height: 72px;
 
     &.dark-mode {
       @include dark-mode-styles();
-      border-top: $generic-border-dark;
+      border-color: rgba(#000000, 0.24);
     }
 
     &-item {
       border-bottom: $generic-border;
 
       &.dark-mode {
-        border-bottom: $generic-border-dark;
+        border-color: rgba(#000000, 0.24);
       }
 
       &-inner {
@@ -180,12 +182,22 @@ $header-height: 72px;
 $note-editor-top-margin: 24px;
 
 .note-editor {
+  padding: $note-editor-top-margin 15% 0 15%;
+
+  &.dark-mode {
+    @include dark-mode-styles();
+
+    & .note-editor__container {
+      // border-left: $generic-border-dark;
+      // border-right: $generic-border-dark;
+    }
+  }
+
   &__container {
-    width: 70%;
+    width: 100%;
     min-height: calc(100vh - #{$header-height} - #{$note-editor-top-margin});
-    border-left: $generic-border;
-    border-right: $generic-border;
-    margin: $note-editor-top-margin 15% 0 15%;
+    // border-left: $generic-border;
+    // border-right: $generic-border;
     padding: 16px;
     font-size: 20px;
     cursor: text;

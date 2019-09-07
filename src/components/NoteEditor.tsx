@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Editor, EditorState, ContentState } from 'draft-js'
 import { useWorkspaceContext } from '../context/WorkspaceContext'
+import { useDarkModeContext } from '../context/DarkModeContext'
 import { UPDATE_NOTE_TEXT } from '../reducers/WorkspaceReducer'
 
 const DELIMITER = '\n'
@@ -21,6 +22,8 @@ const buildEditorState = state => {
 }
 
 export const NoteEditor = () => {
+  const { darkMode } = useDarkModeContext()
+
   const { state, dispatch } = useWorkspaceContext()
   const { selectedWorkspace } = state
 
@@ -54,13 +57,15 @@ export const NoteEditor = () => {
   }, [selectedWorkspace])
 
   return (
-    <div className="note-editor__container" onClick={focusEditor}>
-      <Editor
-        ref={setEditor}
-        placeholder="What are you thinking about?"
-        editorState={editorState}
-        onChange={onChange}
-      />
+    <div className={`note-editor ${darkMode ? 'dark-mode' : ''}`}>
+      <div className="note-editor__container" onClick={focusEditor}>
+        <Editor
+          ref={setEditor}
+          placeholder="What are you thinking about?"
+          editorState={editorState}
+          onChange={onChange}
+        />
+      </div>
     </div>
   )
 }
