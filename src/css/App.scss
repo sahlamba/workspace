@@ -46,6 +46,24 @@ p.text-input-error {
   background-color: $red;
 }
 
+@keyframes showThis {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.visible {
+  display: inherit;
+  animation: showThis 600ms linear;
+}
+
+.invisible {
+  display: none;
+}
+
 /* Header
 ======================================= */
 $header-height: 72px;
@@ -188,6 +206,10 @@ $header-height: 72px;
           &.dark-mode {
             @include dark-mode-styles(true);
           }
+        }
+
+        &-new {
+          margin: 0 0 0 8px;
         }
       }
     }

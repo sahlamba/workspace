@@ -23,6 +23,7 @@ interface ListProps {
 }
 
 const AddWorkspaceListItem = () => {
+  const [hideInput, setHideInput] = useState(true)
   const [showError, setShowError] = useState(false)
   const [name, setName] = useState('')
 
@@ -30,6 +31,11 @@ const AddWorkspaceListItem = () => {
   const { dispatch } = useWorkspaceContext()
 
   const addWorkspace = () => {
+    // First click on `+` icon opens hidden text input
+    if (hideInput) {
+      setHideInput(false)
+      return
+    }
     if (name && name.length > 0 && name.length <= 20) {
       dispatch({ type: ADD_WORKSPACE, ws: { name } })
       setName('')
@@ -37,6 +43,20 @@ const AddWorkspaceListItem = () => {
       return
     }
   }
+
+  let inputRef
+  const setInputRef = input => {
+    inputRef = input
+  }
+  const focusInput = () => {
+    if (inputRef && !hideInput) {
+      inputRef.focus()
+    }
+  }
+
+  useEffect(() => {
+    focusInput()
+  })
 
   useEffect(() => {
     if (name && (name.length < 0 || name.length > 20)) {
@@ -51,9 +71,12 @@ const AddWorkspaceListItem = () => {
       className={`workspace-select__list-item ${darkMode ? 'dark-mode' : ''}`}>
       <div className="workspace-select__list-item-inner">
         <input
+          ref={setInputRef}
           className={`workspace-select__text-input ${
-            showError ? 'workspace-select__text-input-error' : ''
-          } ${darkMode ? 'dark-mode' : ''}`}
+            hideInput ? 'invisible' : 'visible'
+          } ${showError ? 'workspace-select__text-input-error' : ''} ${
+            darkMode ? 'dark-mode' : ''
+          }`}
           placeholder="Give your workspace a name"
           value={name}
           onChange={e => setName(e.target.value)}
@@ -65,6 +88,12 @@ const AddWorkspaceListItem = () => {
             }`}
             onClick={() => addWorkspace()}
           />
+          <p
+            className={`workspace-select__list-item-actions-new ${
+              hideInput ? 'visible' : 'invisible'
+            }`}>
+            New workspace
+          </p>
         </div>
       </div>
       {/* {showError ? (
