@@ -26,14 +26,12 @@ export const uiConfig = {
   },
 }
 
-export const logout = async () => {
+export const logout = () => {
   try {
-    const result = await app.auth().signOut()
-    return result
+    app.auth().signOut()
   } catch (error) {
     // eslint-disable-next-line
     console.error({ error })
-    return error
   }
 }
 

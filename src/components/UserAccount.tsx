@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { IoIosLogIn, IoIosLogOut, IoIosSettings } from 'react-icons/io'
+import { GiEuropeanFlag } from 'react-icons/gi'
 import { GoCheck, GoX } from 'react-icons/go'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import { useAuthContext } from '../context/AuthContext'
@@ -110,15 +111,23 @@ const LoginAction = ({ darkMode }) => {
 }
 
 export const UserAccount = ({ darkMode }) => {
-  const { isLoggedIn } = useAuthContext()
+  const { authenticating, isLoggedIn } = useAuthContext()
 
   return (
-    <div className="user-account">
-      {isLoggedIn ? (
-        <UserAccountOptions darkMode={darkMode} />
+    <>
+      {authenticating ? (
+        <div className="user-account">
+          <GiEuropeanFlag className="loading-icon" />
+        </div>
       ) : (
-        <LoginAction darkMode={darkMode} />
+        <div className="user-account">
+          {isLoggedIn ? (
+            <UserAccountOptions darkMode={darkMode} />
+          ) : (
+            <LoginAction darkMode={darkMode} />
+          )}
+        </div>
       )}
-    </div>
+    </>
   )
 }

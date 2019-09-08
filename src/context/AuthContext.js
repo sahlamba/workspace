@@ -5,13 +5,13 @@ const AuthContext = createContext(null)
 
 export const AuthContextProvider = ({ children }) => {
   const [phone, setPhone] = useState('')
+  const [authenticating, setAuthenticating] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
-    // TODO: use a custom authUser() async/await method here and
-    // use a loadingAuth state to render loading message before
-    // <App /> render
     const unregister = firebase.auth().onAuthStateChanged(user => {
+      // Used only on App startup while Firebase checks for persisted Auth state
+      setAuthenticating(false)
       setIsLoggedIn(!!user)
       setPhone(!!user ? user.phoneNumber : '')
     })
@@ -21,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, phone }}>
+    <AuthContext.Provider value={{ authenticating, isLoggedIn, phone }}>
       {children}
     </AuthContext.Provider>
   )
