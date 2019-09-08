@@ -112,8 +112,8 @@ $header-height: 72px;
 
         &-options {
           position: absolute;
-          width: 150px;
-          max-height: 300px;
+          width: 200px;
+          max-height: 450px;
           overflow-y: scroll;
           top: calc(100% + 14px);
           right: 0;
@@ -121,6 +121,14 @@ $header-height: 72px;
           box-shadow: rgba(#000000, 0.24) 0px 4px 4px 0px;
           border-top: $generic-border;
           z-index: 200;
+
+          &.auto-width {
+            width: 352px;
+
+            @include mq(900px) {
+              width: 100vw;
+            }
+          }
 
           @include mq(900px) {
             width: 100vw;
@@ -134,6 +142,10 @@ $header-height: 72px;
 
           &-item {
             padding: 8px 16px;
+
+            &.zero-padding {
+              padding: 0;
+            }
 
             &.dark-mode {
               border-color: rgba(#000000, 0.24);
@@ -226,7 +238,7 @@ $header-height: 72px;
   &__list {
     position: absolute;
     width: 100%;
-    max-height: 300px;
+    max-height: 450px;
     overflow-y: scroll;
     top: 100%;
     left: 50%;

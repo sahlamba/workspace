@@ -6,6 +6,7 @@ import { Header } from './components/Header'
 import { NoteEditor } from './components/NoteEditor'
 import { WorkspaceContextProvider } from './context/WorkspaceContext'
 import { DarkModeContextProvider } from './context/DarkModeContext'
+import { AuthContextProvider } from './context/AuthContext'
 import { initAnalytics, trackPage } from './utils/tracking.js'
 
 export const App = () => {
@@ -15,13 +16,15 @@ export const App = () => {
   }, [])
 
   return (
-    <DarkModeContextProvider>
-      <WorkspaceContextProvider>
-        <div className="app">
-          <Header />
-          <NoteEditor />
-        </div>
-      </WorkspaceContextProvider>
-    </DarkModeContextProvider>
+    <AuthContextProvider>
+      <DarkModeContextProvider>
+        <WorkspaceContextProvider>
+          <div className="app">
+            <Header />
+            <NoteEditor />
+          </div>
+        </WorkspaceContextProvider>
+      </DarkModeContextProvider>
+    </AuthContextProvider>
   )
 }
