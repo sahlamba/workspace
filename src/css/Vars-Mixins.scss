@@ -35,7 +35,8 @@ $generic-border-dark: 1px solid $light-gray;
   }
 }
 
-@mixin generic-icon() {
+@mixin generic-icon($margin: 0) {
+  margin: $margin;
   padding: 4px;
   border: 0;
   border-radius: 4px;
@@ -45,6 +46,13 @@ $generic-border-dark: 1px solid $light-gray;
   &:hover {
     background-color: $lighter-gray;
   }
+}
+
+@mixin loading-icon($margin: 0) {
+  margin: $margin;
+  padding: 4px;
+  border: 0;
+  font-size: 2.5em;
 }
 
 @mixin dark-mode-styles($hover-styles: false) {
